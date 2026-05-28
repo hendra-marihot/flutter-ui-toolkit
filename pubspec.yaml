@@ -1,8 +1,8 @@
 name: flutter_flavor_ui
 description: A collection of production-grade Flutter widgets with Material 3 theming, shimmer loading, responsive layouts, and form validators.
 version: 0.1.0
-homepage: https://github.com/hendramarihot/flutter-ui-toolkit
-repository: https://github.com/hendramarihot/flutter-ui-toolkit
+homepage: https://github.com/hendra-marihot/flutter-ui-toolkit
+repository: https://github.com/hendra-marihot/flutter-ui-toolkit
 topics:
   - ui
   - widgets
