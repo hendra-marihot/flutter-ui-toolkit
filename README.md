@@ -4,13 +4,6 @@ A reusable widget library for Flutter — zero runtime dependencies, Material 3 
 
 This is one repo in a portfolio series. Each covers a different fundamental of senior-level Flutter engineering. This one is about **widget-layer design**: building small, composable UI primitives that are theme-aware, lifecycle-safe, and useful without configuration.
 
-<!-- TODO: Add links to other portfolio repos once they're public. Example:
-**Other repos in this series:** [state-management-repo](link) | [navigation-repo](link) | ...
--->
-
-<!-- TODO: Capture a ~10s GIF of the example gallery scrolling through all widgets, light + dark mode side by side. Run on two simulators: `cd example && flutter run`. Replace this block with: ![Demo](assets/demo.gif) -->
-> **[GIF placeholder]** — Example gallery, light + dark mode side by side. See `cd example && flutter run` to try it locally.
-
 ## Why this exists
 
 Every Flutter app ends up building the same handful of widgets: a shimmer loader, an async-safe button, a responsive layout wrapper, an empty state screen. They're simple enough that most teams write them inline, but tricky enough that the inline versions accumulate subtle bugs — broken animations on widget rebuild, `setState` after dispose, double-tap race conditions.
@@ -29,6 +22,73 @@ I built this library to demonstrate how I think about that widget layer: what's 
 | `PullToRefresh` | Pull-to-refresh with `canRefresh` toggle | Disables the gesture by swapping the `notificationPredicate`, not by removing the widget. No rebuild, no state loss. |
 | `EmptyState` | Empty-state screen with optional CTA | Conditional rendering via collection-if. Button only appears when *both* label and callback are non-null — can't get a dead button. |
 | `ErrorState` | Error screen with optional retry | Same pattern as `EmptyState`. Uses `colorScheme.error` for the icon — semantic, not hardcoded. |
+
+## Installation
+
+```bash
+flutter pub add flutter_flavor_ui
+```
+
+Then import the single barrel file — every widget is exported from it:
+
+```dart
+import 'package:flutter_flavor_ui/flutter_flavor_ui.dart';
+```
+
+## Usage
+
+```dart
+// Animated shimmer over any widget.
+ShimmerContainer(
+  child: Container(width: 200, height: 20, color: Colors.white),
+)
+
+// Shimmer placeholder list (defaults to 5 rows).
+const SkeletonLoader(itemCount: 8)
+
+// Button that owns its loading state and surfaces errors.
+AsyncButton(
+  onPressed: () async => submitForm(),
+  onError: (error, stackTrace) => reportError(error),
+  child: const Text('Submit'),
+)
+
+// Responsive layout by breakpoint, with a fallback chain.
+AdaptiveLayout(
+  compact: const MobileView(),
+  medium: const TabletView(),
+  expanded: const DesktopView(),
+)
+
+// Composable, format-only validators (combine with required()).
+TextFormField(
+  validator: FlavorValidators.compose([
+    FlavorValidators.required(),
+    FlavorValidators.email(),
+  ]),
+)
+
+// Pull-to-refresh with a canRefresh toggle.
+PullToRefresh(
+  onRefresh: () async => fetchData(),
+  child: ListView(/* ... */),
+)
+
+// Empty state with an optional call-to-action.
+EmptyState(
+  title: 'No results found',
+  description: 'Try adjusting your search filters.',
+  icon: Icons.search_off,
+  actionLabel: 'Clear filters',
+  onAction: clearFilters,
+)
+
+// Error state with an optional retry.
+ErrorState(
+  message: 'Failed to load data. Please check your connection.',
+  onRetry: fetchData,
+)
+```
 
 ## Key decisions
 
