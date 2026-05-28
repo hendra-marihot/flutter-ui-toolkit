@@ -53,7 +53,7 @@ class _AsyncButtonState extends State<AsyncButton> {
       await widget.onPressed();
     } catch (error, stackTrace) {
       if (widget.onError != null) {
-        if (mounted) widget.onError!.call(error, stackTrace);
+        widget.onError!.call(error, stackTrace);
       } else {
         FlutterError.reportError(
           FlutterErrorDetails(

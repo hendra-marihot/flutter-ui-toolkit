@@ -184,5 +184,31 @@ void main() {
       expect(exception, isA<StateError>());
       expect(find.text('Submit'), findsOneWidget);
     });
+
+    testWidgets('surfaces onError even when disposed mid-flight', (
+      tester,
+    ) async {
+      Object? caughtError;
+      final completer = Completer<void>();
+
+      await tester.pumpWidget(
+        buildApp(
+          AsyncButton(
+            onPressed: () => completer.future,
+            onError: (error, _) => caughtError = error,
+            child: const Text('Submit'),
+          ),
+        ),
+      );
+
+      await tester.tap(find.byType(FilledButton));
+      await tester.pump();
+
+      await tester.pumpWidget(buildApp(const SizedBox()));
+      completer.completeError(StateError('fail'));
+      await tester.pumpAndSettle();
+
+      expect(caughtError, isA<StateError>());
+    });
   });
 }
