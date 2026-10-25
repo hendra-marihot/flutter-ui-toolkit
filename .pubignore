@@ -3,3 +3,4 @@ HANDOFF.md
 .github/
 build/
 *.iml
+docs/
