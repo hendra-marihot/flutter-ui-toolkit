@@ -134,15 +134,12 @@ class _EmptyStateDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 240,
-      child: EmptyState(
-        title: 'No items yet',
-        description: 'Add your first item to get started.',
-        icon: Icons.inbox_outlined,
-        actionLabel: 'Add item',
-        onAction: () {},
-      ),
+    return EmptyState(
+      title: 'No items yet',
+      description: 'Add your first item to get started.',
+      icon: Icons.inbox_outlined,
+      actionLabel: 'Add item',
+      onAction: () {},
     );
   }
 }
@@ -156,12 +153,9 @@ class _ErrorStateDemo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 220,
-      child: ErrorState(
-        message: 'Something went wrong. Please try again.',
-        onRetry: () {},
-      ),
+    return ErrorState(
+      message: 'Something went wrong. Please try again.',
+      onRetry: () {},
     );
   }
 }
