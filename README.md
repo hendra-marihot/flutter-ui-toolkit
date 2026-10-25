@@ -1,8 +1,13 @@
 # flutter_flavor_ui
 
+[![CI](https://github.com/hendra-marihot/flutter-ui-toolkit/actions/workflows/ci.yml/badge.svg)](https://github.com/hendra-marihot/flutter-ui-toolkit/actions/workflows/ci.yml)
+[![License: Apache-2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+
 A reusable widget library for Flutter — zero runtime dependencies, Material 3 native, tested at the lifecycle and boundary level.
 
 This is one repo in a portfolio series. Each covers a different fundamental of senior-level Flutter engineering. This one is about **widget-layer design**: building small, composable UI primitives that are theme-aware, lifecycle-safe, and useful without configuration.
+
+![Example app: shimmer skeletons, empty and error states, async button, pull to refresh](docs/demo.gif)
 
 ## Why this exists
 
